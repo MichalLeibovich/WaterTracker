@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Splash theme used at launch -->
+    <style name="Theme.StreakTracker.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/cyan</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/img_water_drop</item>
+        <item name="postSplashScreenTheme">@style/Theme.StreakTracker</item>
+    </style>
+
+    <!-- Normal app theme -->
+    <style name="Theme.StreakTracker" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- your normal colors / styles -->
+    </style>
+
+</resources>

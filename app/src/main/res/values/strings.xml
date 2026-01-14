@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StreakTracker</string>
+    <string name="water_glasses_counter">Glasses of Water Counter :)</string>
+    <string name="reset">Reset</string>
+    <string name="congratulations_you_reached_your_goal">Congratulations! You reached your goal!</string>
+    <string name="go_to_all_streaks"><![CDATA[<- Go To All Streaks]]></string>
+    <string name="go_to_main_activity"><![CDATA[<- Go To Main Activity]]></string>
+    <string name="enter_date_to_save_the_number_of_glasses">Enter date to save the number of glasses</string>
+    <string name="save">Save</string>
+</resources>
