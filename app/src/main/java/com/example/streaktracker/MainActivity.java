@@ -82,13 +82,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // on below line we are getting
                 // the instance of our calendar.
-                final Calendar c = Calendar.getInstance();
+                final Calendar today = Calendar.getInstance();
 
                 // on below line we are getting
                 // our day, month and year.
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
+                int year = today.get(Calendar.YEAR);
+                int month = today.get(Calendar.MONTH);
+                int day = today.get(Calendar.DAY_OF_MONTH);
+
+                long now = today.getTimeInMillis();
 
                 // on below line we are creating a variable for date picker dialog.
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -105,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         // on below line we are passing year,
                         // month and day for selected date in our date picker.
                         year, month, day);
+                datePickerDialog.getDatePicker().setMaxDate(now);
                 // at last we are calling show to
                 // display our date picker dialog.
                 datePickerDialog.show();
