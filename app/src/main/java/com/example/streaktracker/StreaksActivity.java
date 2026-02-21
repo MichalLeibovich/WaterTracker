@@ -8,10 +8,15 @@ import android.view.View;
 
 public class StreaksActivity extends AppCompatActivity {
 
+    String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
+
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("USER_NAME");
     }
 
     public void goToMainActivity(View view)

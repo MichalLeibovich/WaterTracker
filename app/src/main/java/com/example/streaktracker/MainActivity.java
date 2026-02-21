@@ -8,17 +8,25 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
 //    private boolean dataIsLoaded = false;
+
+    FirebaseFirestore db;
+
+    String username;
 
     SharedPreferences prefs;
     int glassesNum;
@@ -32,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.installSplashScreen(this);
+//        SplashScreen.installSplashScreen(this);
 //        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 //        splashScreen.setKeepOnScreenCondition(() -> !dataIsLoaded);
 
@@ -42,8 +50,14 @@ public class MainActivity extends AppCompatActivity {
 //        // Simulate loading data
 //        loadData();
 
+
+
         initializeDataPicker();
 
+
+        username = "user";
+         db = FirebaseFirestore.getInstance();
+//        addUserToDbIfNotExists();
 
 
         prefs = getSharedPreferences("GlassPrefs", MODE_PRIVATE);
@@ -72,20 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void initializeDataPicker()
     {
-        // on below line we are initializing our variables.
         EditText dateEdt = findViewById(R.id.idEdtDate);
 
-        // on below line we are adding click listener
-        // for our pick date button
         dateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // on below line we are getting
-                // the instance of our calendar.
                 final Calendar today = Calendar.getInstance();
 
-                // on below line we are getting
-                // our day, month and year.
                 int year = today.get(Calendar.YEAR);
                 int month = today.get(Calendar.MONTH);
                 int day = today.get(Calendar.DAY_OF_MONTH);
@@ -94,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // on below line we are creating a variable for date picker dialog.
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        // on below line we are passing context.
                         MainActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -104,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
                                 dateEdt.setText("Save on: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         },
-                        // on below line we are passing year,
-                        // month and day for selected date in our date picker.
                         year, month, day);
                 datePickerDialog.getDatePicker().setMaxDate(now);
                 // at last we are calling show to
@@ -113,6 +117,18 @@ public class MainActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+    }
+
+    private void addUserToDbIfNotExists() {
+        User user = new User(username, 0, Timestamp.now());
+
+        db.collection("users")
+                .document(username)
+                .set(user)
+                .addOnSuccessListener(aVoid ->
+                        Log.d("Firestore", "User saved"))
+                .addOnFailureListener(e ->
+                        Log.e("Firestore", "Error", e));
     }
 
 
@@ -170,13 +186,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToStreaksActivity(View view)
     {
-        Intent intent = new Intent(MainActivity.this, StreaksActivity.class);
+//        Intent intent = new Intent(MainActivity.this, StreaksActivity.class);
 
         // Put data into the Intent using key-value pairs
         // intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
         // intent.putExtra("EXTRA_NUMBER", 42);
+//        intent.putExtra("username", username);
+//
+//        // Start the new activity
+//        startActivity(intent);
+    }
 
-        // Start the new activity
-        startActivity(intent);
+    public void saveCount(View view)
+    {
+
     }
 }

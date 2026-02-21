@@ -140,6 +140,7 @@
         android:backgroundTint="@color/darkerCyan"
         android:text="@string/save"
         android:textSize="30sp"
+        android:onClick="saveCount"
         app:layout_constraintBottom_toTopOf="@+id/btn_reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
